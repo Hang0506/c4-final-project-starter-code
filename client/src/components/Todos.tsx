@@ -51,13 +51,12 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
         name: this.state.newTodoName,
         dueDate
       })
-
       this.setState({
         todos: [...this.state.todos, newTodo],
         newTodoName: ''
       })
-    } catch(e) {
-      alert('Todo creation failed: ' + e.message)
+    } catch {
+      alert('Todo creation failed')
     }
   }
 
@@ -98,7 +97,11 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
         loadingTodos: false
       })
     } catch (e) {
-      alert(`Failed to fetch todos: ${e.message}`)
+      let errorMessage = "Failed to do something exceptional";
+      if (e instanceof Error) {
+        errorMessage = e.message;
+      }
+      alert(errorMessage);
     }
   }
 
@@ -162,7 +165,7 @@ export class Todos extends React.PureComponent<TodosProps, TodosState> {
       <Grid padded>
         {this.state.todos.map((todo, pos) => {
           return (
-            todo && <Grid.Row key={todo.todoId}>
+            <Grid.Row key={todo.todoId}>
               <Grid.Column width={1} verticalAlign="middle">
                 <Checkbox
                   onChange={() => this.onTodoCheck(pos)}
