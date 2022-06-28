@@ -7,12 +7,12 @@ import { Jwt } from '../../auth/Jwt'
 import { JwtPayload } from '../../auth/JwtPayload'
 import { JwksClient } from 'jwks-rsa'
 
-const logger = createLogger('auth')
+const logger = createLogger('auth') 
 
 // DONE: Provide a URL that can be used to download a certificate that can be used
 // to verify JWT token signature.
 // To get this URL you need to go to an Auth0 page -> Show Advanced Settings -> Endpoints -> JSON Web Key Set
-const jwksUrl = 'https://bitcliff-dev.eu.auth0.com/.well-known/jwks.json'
+const jwksUrl = 'https://dev-n70f41mk.us.auth0.com/.well-known/jwks.json'
 
 export const handler = async (
   event: CustomAuthorizerEvent
@@ -21,8 +21,7 @@ export const handler = async (
   try {
     const jwtToken = await verifyToken(event.authorizationToken)
     logger.info('User was authorized', jwtToken)
-
-    return {
+    var dataReturn={
       principalId: jwtToken.sub,
       policyDocument: {
         Version: '2012-10-17',
@@ -35,6 +34,9 @@ export const handler = async (
         ]
       }
     }
+    logger.info('dataReturn', dataReturn)
+    logger.info('finsish authorized')
+    return dataReturn
   } catch (e) {
     logger.error('User not authorized', { error: e.message })
 

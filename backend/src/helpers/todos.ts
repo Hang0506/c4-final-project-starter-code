@@ -1,13 +1,13 @@
-import { TodosAccess } from './todosAcess'
-import { AttachmentUtils } from './attachmentUtils';
+import { TodosAccess } from '../helpers/todosAcess'
 import { TodoItem } from '../models/TodoItem'
 import { CreateTodoRequest } from '../requests/CreateTodoRequest'
 import { UpdateTodoRequest } from '../requests/UpdateTodoRequest'
 import { createLogger } from '../utils/logger'
 import * as uuid from 'uuid'
-import * as createError from 'http-errors'
+import { TodoUpdate } from '../models/TodoUpdate';
+import { FileAccess } from '../helpers/attachmentUtils';
 
-// TODO: Implement businessLogic
+// DONE: Implement businessLogic
 const logger = createLogger('Todos')
 const todosAccess = new TodosAccess();
 const fileAccess = new FileAccess();
